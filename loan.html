@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Loan</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+        }
+
+        input[type="number"] {
+            border: 1px solid #ccc;
+            padding: 5px;
+            background-color: #f7f7f7;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <img class="navbar-brand" src="img/immo_logo_inverted.png" width=100 height=100 alt="flat-logo"
+            class="img-fluid">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Loan Simulator<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="loan_about.html">About</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <img src="img/immo_logo.png" width=100 height=100 alt="flat-logo" class="img-fluid">
+            <h1>The Loan Simulator</h1>
+            <img src="img/immo_logo.png" width=100 height=100 alt="flat-logo" class="img-fluid">
+        </div>
+    </div>
+    <br />
+    <div class="container">
+        <div class="row">
+            <p>
+                <b>Interest rate:</b> Knowing you net salary, go <a
+                    href="https://www.meilleurtaux.com/credit-immobilier/simulation-de-pret-immobilier/calcul-des-mensualites.html">here</a>
+                and set the monthly payment amount to 35% of this value, note the interest rate.
+            </p>
+            <p>
+                <b>Monthly savings:</b> it is the typical amount of money that you will be able to spare each month
+                while living in you future home (this amount includes the future monthly payment of the loan)
+            </p>
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <div class="container">
+        <form id="loan-form">
+            <div class="row">
+                <div class="col-md-10">
+                    <label for="property-price-amount">Property price:</label>
+                </div>
+                <div class="col-md-2">
+                    <input type="number" id="property-price-amount" name="property_price_amount" min="1000"
+                        max="1000000" step="1000" value="170000">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <label for="contribution">Contribution:</label>
+                </div>
+                <div class="col-md-2">
+                    <input type="number" id="contribution" name="contribution" min="0" max="1000000" step="500"
+                        value="40000">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <label for="monthly-savings">Monthly savings:</label>
+                </div>
+                <div class="col-md-2">
+                    <input type="number" id="monthly-savings" name="monthly_savings" min="1" max="10000" step="1"
+                        value="1291">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <label for="monthly-payment">Monthly payment:</label>
+                </div>
+                <div class="col-md-2">
+                    <input type="number" id="monthly-payment" name="monthly_payment" min="1" max="10000" step="1"
+                        value="1291">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <label for="interest-rate">Interest rate:</label>
+                </div>
+                <div class="col-md-2">
+                    <input type="number" id="interest-rate" name="interest_rate" min="0" max="0.05" step="0.0001"
+                        value="0.0375">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <label for="notary-percentage-fee">Notary percentage fee:</label>
+                </div>
+                <div class="col-md-2">
+                    <input type="number" id="notary-percentage-fee" name="notary_percentage_fee" value="0.08"
+                        step="0.001" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <label for="guarantee-percentage-fee">Guarantee percentage fee:</label>
+                </div>
+                <div class="col-md-2">
+                    <input type="number" id="guarantee-percentage-fee" name="guarantee_percentage_fee" value="0.009"
+                        step="0.0001" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <label for="broker-fee-amount">Broker fee amount:</label>
+                </div>
+                <div class="col-md-2">
+                    <input type="number" id="broker-fee-amount" name="broker_fee_amount" value="2500" step="10" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <label for="application-fee-amount">Application fee amount:</label>
+                </div>
+                <div class="col-md-2">
+                    <input type="number" id="application-fee-amount" name="application_fee_amount" value="700"
+                        step="10" />
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <button class="btn btn-primary btn-lg" id="simulate-loan-button" type="button">Simulate
+                        Loan</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <br />
+
+    <div class="container">
+        <div id="result"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+        function simulateYearlyReimboursedLoan(
+            property_price_amount,
+            contribution,
+            monthly_savings,
+            monthly_payment,
+            interest_rate,
+            notary_percentage_fee = 0.08,
+            guarantee_percentage_fee = 0.009,
+            broker_fee_amount = 2500,
+            application_fee_amount = 700
+        ) {
+            console.log(
+                "Starts simulation for",
+                {
+                    property_price_amount,
+                    contribution,
+                    monthly_savings,
+                    monthly_payment,
+                    interest_rate,
+                    notary_percentage_fee,
+                    guarantee_percentage_fee,
+                    broker_fee_amount,
+                    application_fee_amount
+                }
+            )
+            let total_interest_amount = 0;
+            let borrowed_capital = property_price_amount * (1 + notary_percentage_fee + guarantee_percentage_fee) - contribution + broker_fee_amount + application_fee_amount;
+            let remaining_capital = borrowed_capital;
+            let savings = 0;
+            let months = 1;
+            while (remaining_capital > 0) {
+                if (months < 15 * 12) {
+                    console.log("Simulating month #", months)
+                    console.log(
+                        {
+                            borrowed_capital,
+                            months,
+                            years_months: [Math.floor(months / 12), months % 12],
+                            total_interest_amount,
+                            remaining_capital,
+                            remaining_savings: savings,
+                        }
+                    )
+                }
+                const interest_amount = (interest_rate * remaining_capital) / 12;
+                if (interest_amount >= monthly_payment) {
+                    console.log("Interest rate ", interest_rate, " is high compared to monthly_payment")
+                    break
+                }
+                total_interest_amount += interest_amount;
+                remaining_capital -= monthly_payment - interest_amount;
+                savings += monthly_savings - monthly_payment;
+                if ((months + 1) % 12 === 0) {
+                    if (savings > remaining_capital) {
+                        remaining_capital = 0;
+                        savings -= remaining_capital;
+                    } else {
+                        remaining_capital -= savings;
+                        savings = 0;
+                    }
+                }
+                months += 1;
+                if (months > 25 * 12) {
+                    break
+                }
+            }
+
+            return {
+                borrowed_capital,
+                months,
+                years_months: [Math.floor(months / 12), months % 12],
+                total_interest_amount,
+                remaining_capital,
+                remaining_savings: savings,
+            };
+        }
+        if (simulateYearlyReimboursedLoan(170000, 40000, 1290, 1290, 0.0375)["months"] != 144) {
+            throw new Error("Invalid loan logic /!\\");
+        }
+
+        function displayResult(result, params) {
+            const borrowedCapital = formatMoney(result.borrowed_capital);
+            const years = result["years_months"][0];
+            const months = result["years_months"][1];
+            const totalInterestAmount = formatMoney(result.total_interest_amount);
+            const remainingCapital = formatMoney(result.remaining_capital);
+            const remainingSavings = formatMoney(result.remaining_savings);
+            const resultString = `Borrowed Capital: ${borrowedCapital}<br>Duration: ${years} year(s) and ${months} month(s)<br>Total Interest Amount: ${totalInterestAmount}<br>Remaining Capital: ${remainingCapital}<br>Remaining Savings: ${remainingSavings}`;
+            const randomId = "id-" + Math.random().toString(36).substring(7);
+            document.getElementById("result").innerHTML = '<br><div class="row"><div class="col-md-12 text-center">' + '<button class="btn" type="button" data-toggle="collapse" data-target="#toggle-content-' + randomId + '">show parameters</button></div></div><br/><div class="row"><div class="col-md-12"><div id="toggle-content-' + randomId + '" class="collapse">' + JSON.stringify(params) + '</div></div></div><br/><div class="row"><div class="col-md-12 text-center">' + resultString + '</div></div><br><hr class="border-top">' + document.getElementById("result").innerHTML + '<br>';
+        }
+        function formatMoney(amount, decimalCount = 2, decimal = ".", thousands = ",") {
+            try {
+                decimalCount = Math.abs(decimalCount);
+                decimalCount = isNaN(decimalCount) ? 2 : decimalCount;
+
+                const negativeSign = amount < 0 ? "-" : "";
+
+                let i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount)).toString();
+                let j = (i.length > 3) ? i.length % 3 : 0;
+
+                return negativeSign + (j ? i.substr(0, j) + thousands : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands) + (decimalCount ? decimal + Math.abs(amount - i).toFixed(decimalCount).slice(2) : "");
+            } catch (e) {
+                console.log(e)
+            }
+        }
+
+
+        function submitForm(event) {
+            event.preventDefault();
+            const formElement = event.target.form;
+            const formData = new FormData(formElement);
+            const result = simulateYearlyReimboursedLoan(
+                parseInt(formData.get("property_price_amount")),
+                parseInt(formData.get("contribution")),
+                parseInt(formData.get("monthly_savings")),
+                parseInt(formData.get("monthly_payment")),
+                parseFloat(formData.get("interest_rate")),
+                parseFloat(formData.get("notary_percentage_fee")),
+                parseFloat(formData.get("guarantee_percentage_fee")),
+                parseInt(formData.get("broker_fee_amount")),
+                parseInt(formData.get("application_fee_amount"))
+            );
+            displayResult(
+                result,
+                {
+                    "property_price_amount": parseInt(formData.get("property_price_amount")),
+                    "contribution": parseInt(formData.get("contribution")),
+                    "monthly_savings": parseInt(formData.get("monthly_savings")),
+                    "monthly_payment": parseInt(formData.get("monthly_payment")),
+                    "interest_rate": parseFloat(formData.get("interest_rate")),
+                    "notary_percentage_fee": parseFloat(formData.get("notary_percentage_fee")),
+                    "guarantee_percentage_fee": parseFloat(formData.get("guarantee_percentage_fee")),
+                    "broker_fee_amount": parseInt(formData.get("broker_fee_amount")),
+                    "application_fee_amount": parseInt(formData.get("application_fee_amount"))
+                }
+            );
+        }
+
+        document.querySelector("#simulate-loan-button").addEventListener("click", submitForm);
+    </script>
+
+
+</body>
+
+</html>

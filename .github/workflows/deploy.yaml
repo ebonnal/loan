@@ -1,0 +1,27 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0
+      - name: Gcloud auth
+        env:
+          LOAN_SERVICE_ACCOUNT_KEY: ${{ secrets.LOAN_SERVICE_ACCOUNT_KEY }}
+          SERVICE_ACCOUNT_KEY_PATH: /tmp/service_account_key.json
+        run: |
+          echo $LOAN_SERVICE_ACCOUNT_KEY > $SERVICE_ACCOUNT_KEY_PATH
+          SERVICE_ACCOUNT_NAME=$(cat $SERVICE_ACCOUNT_KEY_PATH | jq '.client_email' | tr -d '"')
+          gcloud auth activate-service-account $SERVICE_ACCOUNT_NAME --key-file=$SERVICE_ACCOUNT_KEY_PATH
+      - name: update bucket objects
+        run: |
+          gsutil cp -r img gs://bonnal-enzo-loan
+          gsutil cp loan.html gs://bonnal-enzo-loan
+          gsutil cp loan_about.html gs://bonnal-enzo-loan
