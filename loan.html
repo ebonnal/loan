@@ -218,9 +218,9 @@
                 savings += monthly_savings - monthly_payment;
                 if ((months + 1) % 12 === 0) {
                     if (savings > remaining_capital) {
-                        remaining_capital = 0;
                         savings -= remaining_capital;
-                    } else {
+                        remaining_capital = 0;
+                    else {
                         remaining_capital -= savings;
                         savings = 0;
                     }
